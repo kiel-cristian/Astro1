@@ -1,5 +1,6 @@
 *.png
 *.pdf.zip
 *.pdf
-*.fit*
+*.fits
+*.fit
 *.dat
