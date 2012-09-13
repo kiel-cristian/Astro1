@@ -4,3 +4,7 @@
 *.fits
 *.fit
 *.dat
+
+/Auxiliar_1/*
+/Auxiliar_2/*
+/Auxiliar_3/*
