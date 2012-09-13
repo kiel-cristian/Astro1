@@ -1,0 +1,1 @@
+Este repo contiene informacion de la tarea 1 de astroinformatica, 2012 semestre de primavera.
