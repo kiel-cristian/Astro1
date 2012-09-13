@@ -8,21 +8,31 @@ import numpy as np
 from math import pow
 
 def mToCounts (m, m0, F0):
-    return F0*pow(10,-2.5*(m-m0))
+    counts=exptime*F0*10**(-2/5*(m-m0))
+	return (counts)
 
 def addStar (hdu, m, RA, DEC):
-    # Definir rutina que agrega una estrella de magnitud m en la
-    # coordenada RA, DEC
-    return
+    (ROW,COL)=RADECtoRowCol(RA,DEC)
+	if 0<=ROW<=4096 and 0<=COL<=4096:	
+		hdu[ROW,COL]=mToCounts(m,20,flux20)
+		print ROW,COL,mToCounts(m,20,flux20)
+	return
 
 def addStellarCatalog (hdu, catalog):
-    # Definir rutina que agregue un catalogo de estrellas a hdu.
-    return
+    for linea in open(catalog):
+		linea = linea.strip()
+		obj, ra, dec,mag,sed,index,tipo = linea.split()
+		ra=float(ra)
+		dec=float(dec)
+		mag=float(mag)
+		#print ra,dec,RADECtoRowCol(ra,dec)
+		addStar(hdu,mag,ra,dec)
+	return
 
 def addGalaxy (hdu, m, RA, DEC, n, Re, el, theta):
     # Definir rutina que agrega una galaxia de magnitud m en la
     # coordenada RA, DEC, representada por un perfil de Sersic
-    # definido por n, Re, el y rotado en un ángulo theta.
+    # definido por n, Re, el y rotado en un ï¿½ngulo theta.
     return
 
 def addGalaxyCatalog (hdu, catalog):
@@ -34,7 +44,7 @@ def addBackground (hdu, background):
     return
 
 def convolvePSF (hdu, sigma):
-    # Convoluciona hdu con un PSF Gaussiano de desviación estandard
+    # Convoluciona hdu con un PSF Gaussiano de desviaciï¿½n estandard
     # sigma.
     return
     
