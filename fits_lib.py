@@ -41,4 +41,3 @@ def print_header(list_header):
     for key,value in list_header:
         key_str = key + " "*(8-len(key))
         print ">> %s\t= %s" % (key_str,str(value))
-

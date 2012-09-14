@@ -19,4 +19,4 @@ hdr1 = get_fits_header('blank.fits')
 img1 = get_fits_matrix('blank.fits')
 print "\n>> ARCHIVO 1:\n"
 print_header(hdr1)
-plot_image(img1)
+plot_image(img1,log_scale=True)
