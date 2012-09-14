@@ -87,7 +87,7 @@ def addGalaxyCatalog(hdu, catalog):
 		o = float(o)
 		addGalaxy(hdu,mag,ra,dec,n,re,elip,o)
 		i += 1
-		if i > 100000: break
+		# if i > 100000: break
 	return
 
 def addBackground (hdu, background):
