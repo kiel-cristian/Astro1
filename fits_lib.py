@@ -3,7 +3,13 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
+
 import pyfits
+import pylab as pl
 
 def plot_image(image,interpolation="nearest",log_scale=False,title=None):
 
@@ -41,3 +47,16 @@ def print_header(list_header):
     for key,value in list_header:
         key_str = key + " "*(8-len(key))
         print ">> %s\t= %s" % (key_str,str(value))
+
+def plot2D (x, y, z, filename = False):
+    pl.clf()
+    fig  = pl.figure()
+    ax   = fig.gca(projection='3d')
+    surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.jet,linewidth=0, antialiased=False)
+    ax.zaxis.set_major_locator(LinearLocator(10))
+    ax.zaxis.set_major_formatter(FormatStrFormatter('%f'))
+    fig.colorbar(surf, shrink=0.5, aspect=5)
+    if filename:
+        pl.savefig (filename)
+    else:
+        pl.show()

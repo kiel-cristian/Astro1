@@ -49,6 +49,7 @@ sigma_y = 5.
 s = 0.01/(2*np.pi*sigma_x*sigma_y)
 x_zero = N/2
 y_zero = N/2
+
 gaussian = np.exp(-((x-x_zero)**2.0/(2*sigma_x**2.0)+(y-y_zero)**2.0/(2*sigma_y**2.0)))/(2*np.pi*sigma_x*sigma_y)
 z = gaussian + random.standard_normal((N,N)) * s
 

@@ -7,6 +7,7 @@ import scipy as sp
 import numpy as np
 from math import *
 from scipy import random
+from fits_lib import *
 #from mpl_toolkits.mplot3d import Axes3D
 #from matplotlib import cm
 #from matplotlib.ticker import LinearLocator, FormatStrFormatter
@@ -96,21 +97,6 @@ def addBackground (hdu, background):
 	hdu += background
 	return
 
-def plot2D (x, y, z, filename = False):
-
-    pl.clf()
-    fig  = pl.figure()
-    ax   = fig.gca(projection='3d')
-    surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.jet,linewidth=0, antialiased=False)
-    ax.zaxis.set_major_locator(LinearLocator(10))
-    ax.zaxis.set_major_formatter(FormatStrFormatter('%f'))
-    fig.colorbar(surf, shrink=0.5, aspect=5)
-
-    if filename:
-        pl.savefig (filename)
-    else:
-        pl.show()
-
 def convolvePSF (hdu, sigma):
 	#k = 4.
 	#h = np.ceil (k * sigma)
@@ -119,7 +105,7 @@ def convolvePSF (hdu, sigma):
 	#filter =  np.exp((-(x_f*x_f)/(2.*sigma**2)-(y_f*y_f)/(2.*sigma**2))) / np.sqrt(2.*np.pi*sigma**2)
 	#filter /= filter.sum()
 	#print filter
-	N=maxROW
+	N = 20
 	x  = np.zeros((N,N)) + np.arange(N)
 	y  = x.transpose()
 	sigma_x = sigma
@@ -130,6 +116,8 @@ def convolvePSF (hdu, sigma):
 	gaussian = np.exp(-((x-x_zero)**2.0/(2*sigma_x**2.0)+(y-y_zero)**2.0/(2*sigma_y**2.0)))/(2*np.pi*sigma_x*sigma_y)
 	z = gaussian + random.standard_normal((N,N)) * s
 	plot2D(x,y,z,"gaussiana")
+
+	print "asasd"
 	#C = sp.signal.convolve (hdu, z, 'same')
 	#hdu[:][:] = C[:][:]
     

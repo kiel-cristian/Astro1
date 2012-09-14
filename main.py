@@ -12,10 +12,11 @@ catalog1="stellar.dat"
 catalog2="galaxy.dat"
 background = 0
 
-# addStellarCatalog(hdu,catalog1)
-# addGalaxyCatalog(hdu,catalog2)
-# addBackground(hdu,background)
+addStellarCatalog(hdu,catalog1)
+addGalaxyCatalog(hdu,catalog2)
+addBackground(hdu,background)
 
+# plot_image(hdu,log_scale=True)
+convolvePSF (hdu, 5)
 
-plot_image(hdu,log_scale=True)
 hdulist.close()
