@@ -13,10 +13,6 @@ catalog2="galaxy.dat"
 
 m.addStellarCatalog(hdu,catalog1)
 m.addGalaxyCatalog(hdu,catalog2)
-hdulist.close()
 
-hdr1 = get_fits_header('blank.fits')
-img1 = get_fits_matrix('blank.fits')
-print "\n>> ARCHIVO 1:\n"
-print_header(hdr1)
-plot_image(img1,log_scale=True)
+plot_image(hdu,log_scale=True)
+hdulist.close()
