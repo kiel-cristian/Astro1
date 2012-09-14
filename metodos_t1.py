@@ -60,10 +60,11 @@ def addStellarCatalog(hdu, catalog):
 def addGalaxy(hdu, m, RA, DEC, n, Re, el, theta):
 	(ROW,COL)=RADECtoRowCol(RA,DEC)
 	if 0 <= ROW < maxROW and 0 <= COL < maxCOL:	
-		a1=int(ROW-4*Re)
-		b1=int(ROW+4*Re)
-		a2=int(COL-4*Re)
-		b2=int(COL+4*Re)
+		f = 5
+		a1=int(ROW-f*Re)
+		b1=int(ROW+f*Re)
+		a2=int(COL-f*Re)
+		b2=int(COL+f*Re)
 		for y in range(a1,b1):
 			for x in range(a2,b2):
 				if  0 <= y < 4096 and 0 <= x < 4096:
