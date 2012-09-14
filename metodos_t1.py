@@ -91,7 +91,7 @@ def addGalaxyCatalog(hdu, catalog):
 	return
 
 def addBackground (hdu, background):
-    # Agrega un background constante a hdu.
+    hdu += background# Agrega un background constante a hdu.
     return
 
 def convolvePSF (hdu, sigma):
