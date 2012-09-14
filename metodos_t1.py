@@ -25,14 +25,14 @@ cd2_1=hdulist[0].header['CD2_1']
 cd2_2=hdulist[0].header['CD2_2']
 
 def RADECtoRowCol(RA,DEC):
-	row =(cd2_1*(crval1-RA)-cd1_1*(crval2-DEC))/(cd1_2*cd2_1-cd1_1*cd2_2)+crpix2
-	col =(-cd2_2*(crval1-RA)+cd1_2*(crval2-DEC))/(cd1_2*cd2_1-cd1_1*cd2_2)+crpix1
+	row =1/(cd1_2*cd2_1-cd1_1*cd2_2)*(cd2_1*(RA-crval1)-cd1_1*(DEC-crval2))+crpix2
+	col =1/(cd1_2*cd2_1-cd1_1*cd2_2)*(-cd2_2*(RA-crval1)+cd1_2*(DEC-crval2))+crpix1
 	return (int(row),int(col))#revisar bien esto despues
 
 def addStar (hdu, m, RA, DEC):
 	(ROW,COL)=RADECtoRowCol(RA,DEC)
-	if 0<=ROW<=4096 and 0<=COL<=4096:	
-		hdu[ROW,COL]=mToCounts(m,20,flux20)
+	if 0<=ROW<4096 and 0<=COL<4096:	
+		hdu[ROW,COL]+=mToCounts(m,20,flux20)
 		print ROW,COL,mToCounts(m,20,flux20)
 	return
 
@@ -57,17 +57,17 @@ def psersic (Re,n,m,xc,yc,x,y,el,theta):
 	
 def addGalaxy (hdu, m, RA, DEC, n, Re, el, theta):
 	(ROW,COL)=RADECtoRowCol(RA,DEC)
-	if 0<=ROW<=4096 and 0<=COL<=4096:	
-		hdu[ROW,COL]=mToCounts(m,20,flux20)*(2*n-0.324)**2/((Re**2)*2*math.pi*n*math.gamma(2*n))
-		print ROW,COL, mToCounts(m,20,flux20)*(2*n-0.324)**2/((Re**2)*2*math.pi*n*math.gamma(2*n))
+	if 0<=ROW<4096 and 0<=COL<4096:	
 		a1=int(ROW-4*Re)
 		b1=int(ROW+4*Re)
 		a2=int(COL-4*Re)
 		b2=int(COL+4*Re)
 		for (y) in range(a1,b1):
 			for(x) in range(a2,b2):
-				if  0<=y<=4096 and 0<=x<=4096:
-					hdu[y,x]=psersic(Re,n,m,COL,ROW,x,y,el,theta)
+				if  0<=y<4096 and 0<=x<4096:
+					hdu[y,x]+=psersic(Re,n,m,COL,ROW,x,y,el,theta)
+		#hdu[ROW,COL]+=mToCounts(m,20,flux20)*(2*n-0.324)**2/((Re**2)*2*math.pi*n*math.gamma(2*n))
+		print ROW,COL, mToCounts(m,20,flux20)*(2*n-0.324)**2/((Re**2)*2*math.pi*n*math.gamma(2*n))
 	return
 
 def addGalaxyCatalog (hdu, catalog):
@@ -84,7 +84,7 @@ def addGalaxyCatalog (hdu, catalog):
 		o=float(o)
 		addGalaxy(hdu,mag,ra,dec,n,re,elip,o)
 		i+=1
-		if i>10000: break
+		if i>100000: break
 	return
 
 def addBackground (hdu, background):
