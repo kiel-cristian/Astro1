@@ -1,0 +1,299 @@
+\documentclass[twocolumn]{AS4201}
+\usepackage[spanish,english]{babel} % Para separar correctamente las palabras de multitud de idiomas
+\usepackage[utf8]{inputenc} %Este paquete permite poner acentos directamente y eñes
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{longtable} % para tablas mas largas que un sola pagina
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%
+\title{Tarea $N^o$1 AS4501/CC4501}
+%\subtitle{?}
+\author{Crist\'an Carre\~no M.\inst{1} \and
+		Diego Chavez E. \inst{1}\and
+		He\'ctor Salas O.\inst{2}\\ 
+\inst{}
+%\fnmsep\thanks{Just to show the usage
+%of the elements in the author field}
+}
+%\offprints{G. Wuchterl}
+\institute{	
+	Departamento de ciencias de la computación (DCC), Universidad de Chile
+	Avenida Blanco Encalada 2120, Tercer Piso, Santiago, Chile
+	%\email{c.ptolemy@hipparch.uheaven.space}
+	\and
+	Departamento de Astronom\'ia (DAS), Universidad de Chile,
+	Camino El observatorio 1515, Las Condes, Chile\\
+	%\email{wuchterl@amok.ast.univie.ac.at}
+	%\thanks{The university of heaven temporarily does not5
+	%accept e-mails}
+}
+\date{\today}
+\abstract{In this work we have taken a subsample of 138 stars that show the re-emission of the Calcium K line core out of a sample of over 900 dwarfs and sub-giants stars observed with the FEROS spectrograph and used to study the Wilson-Bappu effect. The width of the line was measured in the usual manner but also the re-emission of the line was fit by a Gaussian and then taking the FWHM of the Gaussian, and using the new Hipparcos reduction from van Lueewen (2008), a new relationship for the Wilson-Bappu effect was obtained as well as a second relationship using the FWHM as a measure of the width of the line, both relationships were later compared in order to see the validity of this new approach.
+\keywords{Wilson-Bappu effect -- absolute magnitude -- distance -- K calcium re-emission line
+}
+}
+\maketitle
+%
+%________________________________________________________________
+\section{Introduction}
+The Wilson-Bappu effect is a correlation between the width of the emission core of the Calcium K spectral ($W_0$) line and the absolute visual magnitude of the star. This correlation is independent of spectral type and applicable to stars of type G, K, and M. This correlation was first reported by Olin C. Wilson and M. K. Vainu Bappu (1957) and could provide an independent method to measure the distance of stars clusters or nearby galaxies.\\
+\section{Objetivos}\
+\section{Metodología} 
+\subsection{Obtencion de Cuentas desde Magnitudes}
+\label{cuentas}
+Lo primero que se nos pide para realizar esta tarea es la creación de la rutina "mToCounts(m,m0,F0)" que reciba el la magnitud de un objeto (m)y retorne el numero de cuentas recibidos el CCD dadas una magnitud y flujo de referencia ($m_0$,$F_0$).\\
+\\
+Partiendo de la ecuación:
+\begin{equation}
+	m-m_0=-2.5log(\frac{F}{F_0})
+\end{equation}
+Despejando $F_0$ se tiene:
+\begin{equation}
+	10^{\frac{-2(m-m_0)}{5}}=\frac{F}{F_0}
+\end{equation}
+Pero se sabe además que :
+\begin{equation}
+	F=\frac{energia}{Area*exptime}=\frac{\# cuentas}{exptime}
+\end{equation}
+%Luego 
+%\begin{equation}
+%	\frac{F}{F_0}=\frac{\frac{\# cuentas}{exptime}}{\frac{\# cuentas_0}{exptime}}=\frac{\# cuentas}{\# cuentas_0}
+%\end{equation}
+finalmente 
+\begin{equation}
+	\# Cuentas=exptime*F_0*10^{\frac{-2(m-m_0)}{5}}
+\end{equation}
+Notar que la función así como la hemos definido depende además del tiempo de exposición, sin embargo este lo obtendremos del header del archivo fits con el que vamos a (Key EXPTIME del header)  
+\subsection{Simulación de estrellas}
+A continuación se nos pidió generar la rutina "addStar(hdu,m,RA,DEC)" que reciba la magnitud y coordenadas de una estrella.\\ 	
+
+Para esto es primero necesario convertir las coordenadas celestes $(RA,DEC)$ en coordenadas cartesianas en la imagen $(row,col)$ en la imagen; de lo visto en la clase auxiliar se sabe que se pueden obtener las coord celestes de un píxel  $(RA_p,DEC_p)$ cuyas coordenadas en la imagen son $(row_p,col_p)$, a partir de un píxel de referencia de coord (cuyas coord celestes, así como sus coord en la imagen son conocidas) m\'a s la inflacionario de como varían RA y DEC al variar row y col. \\Esto se hace mediante la siguiente ecuación: \\ 
+$%\begin{equation}
+ 	\left[\begin{array}{c}
+ 	    RA_p \\DEC_p 
+	\end{array}\right] 
+	=
+	\left[\begin{array}{cc}
+		\Delta RA_{row} & \Delta RA_{col}\\ 
+		\Delta DEC_{row} & \Delta DEC_{col}
+	\end{array}\right] 
+	\left[\begin{array}{c}
+ 	    row_p-row_{ref\_ pix}\\col_p-col{ref\_ pix}
+	\end{array}\right] 		
+%\end{equation}
+$
+\begin{equation}
+\hspace{100pt}
++
+	\left[\begin{array}{c}
+ 	       RA_{ref\_ pix} \\DEC{ref\_ pix}
+	\end{array}\right] 
+\end{equation}
+La información necesaria para realizar esta transformación se encuentra en el header de la imagen en los siguientes campos:
+\begin{flushleft}
+	\label{table:1}      % is used to refer this table in the text
+	\begin{tabular}{ll}        % centered columns (4 columns)
+	KEY & valor\\
+	\hline                % inserts double horizontal lines
+	CRPIX1 & Columna del pixel de referencia\\
+	%\hline   
+	CRPIX2 & Fila del pixel de referencia  \\
+	%\hline    
+	CRVAL1 & RA del pixel de referencia \\
+	%\hline
+	CRVAL2 & DEC del pixel de referencia \\
+	%\hline
+	CD1\_1 & Variación de RA (en grados) por columna\\
+	%\hline
+	CD1\_2 & Variación de RA (en grados) por fila\\
+	%\hline	  	
+	CD2\_1 & Variación de DEC (en grados) por columna\\
+	%\hline
+	CD2\_2 & Variación de DEC (en grados) por fila\\
+	%\hline		
+\end{tabular}\end{flushleft}
+Las que se pueden obtener haciendo uso de algunas rutinas de la librería pyfits, como se muestra a continuación\\
+$\\
+import pyfits 
+\\
+hdulist = pyfits.open('nombrearchivo.fits')\\
+hdulist.close()\\
+var=hdulist[0].header['KEY']\\
+$\\
+Remplazando esto en la ecuación anterior:
+\begin{equation}\label{a}
+ 	\left[\begin{array}{c}
+ 	    RA_p \\DEC_p 
+	\end{array}\right] 
+	=
+	\left[\begin{array}{cc}
+		CD1\_2 & CD1\_1\\ 
+		CD2\_2 & CD2\_1\\
+	\end{array}\right] 
+	\left[\begin{array}{c}
+ 	    row_p-CRPIX2 \\col_p-CRPIX1
+	\end{array}\right] 		
+\end{equation}
+$
+\hspace{100pt}
++
+	\left[\begin{array}{c}
+ 	    CRVAL1 \\CRVAL2
+	\end{array}\right] 
+$\\
+\\
+Como nos interesa el problema inverso tenemos que despejar	
+$\left[\begin{array}{c}
+row_p \\col_p
+ \end{array}\right]$ 
+de la ecuación (\ref{a}), esto queda:
+\begin{equation}\nonumber
+ 	\left[\begin{array}{c}
+ 	    row_p \\col_p 
+	\end{array}\right] 
+	=M^{-1} 	
+	\left[\begin{array}{c}
+ 	    RA_p-CRVAL1\\DEC_p-CRVAL2
+	\end{array}\right] 	
+	+
+	\left[\begin{array}{c}
+ 	    CRPIX2\\CRPIX1
+	\end{array}\right] 
+\end{equation}
+Donde:
+\begin{eqnarray}\nonumber
+	M^{-1} & = &
+	\left[\begin{array}{cc}
+		CD1\_2 & CD1\_1\\ 
+		CD2\_2 & CD2\_1\\
+	\end{array}\right]^{-1} \\
+	\nonumber
+	& = & \frac{1}{det|M|}%{CD1\_2*CD2\_2-CD1\_1*CD2\_1}	
+	\left[\begin{array}{cc}
+		CD2\_1 & -CD1\_1\\ 
+		-CD2\_2 & CD1\_2\\
+	\end{array}\right]
+\end{eqnarray}\label{estrella}
+Ahora que sabemos en que coordenadas de la imagen se encuentra la estrella podemos simularla asignándole al píxel correspondiente a la ubicación de la estrella el numero de cuentas que corresponden a la estrella dada su magnitud (las estrellas se simulan como fuentes puntuales, es decir, como un solo píxel en la imagen), para esto hacemos uso de la "rutina mToCounts" definida anteriormente, usando como valor de referencia FLUX20 (el flujo a una magnitud 20), el que se obtiene del header de al archivo fits (recordar que también necesitamos el valor EXPTIME del header); Este valor se obtiene en forma análoga a lo mostrado anteriormente.\\
+Una vez creada la rutina "addStar(hdu,m,RA,DEC)" se pide construir una rutina que lea un catalogo de estrellas y las agregue a una imagen fits, "addStellarCatalog(hdu,catalog)". Para esto se nos ha entregado el catalogo de estrellas "stellar.dat" que consiste en un archivo de texto con el siguiente formato:\\
+$\\
+"object"\hspace{5pt}RA\hspace{5pt}	DEC\hspace{5pt}	r\_magnitude\hspace{5pt}	SED	index\hspace{5pt}	"star"\\
+$\\	
+donde los distintos parámetros corresponden a;
+
+\begin{flushleft}
+	\label{table:2}      % is used to refer this table in the text
+	\begin{tabular}{ll}        % centered columns (4 columns)
+	RA&: Ascensión recta en grados. \\
+	%\hline   
+	DEC&: Declinación en grados.  \\
+	%\hline    
+	r\_magnitude&: Magnitud del objeto en el filtro R.\\
+	%\hline
+	SED&: Spectral energy distribution, no es \\ 
+	 & importante para esta tarea. \\
+	%\hline
+	index&: 0, No es importante para esta tarea\\	
+\end{tabular}\end{flushleft}
+Luego todo lo que necesitamos hacer es crear una rutina que lea la tabla y llame a la rutina "addStar(hdu,m,RA,DEC)", entregándole los parámetros correspondientes.
+\subsection{Simulación de Galaxias}
+Se nos pide ahora crear una rutina que a\~nada una galaxia a un archivo fit "addGalaxy(hdu,m,RA,DEC,n,Re,el,theta)" que recibe la magnitud, coordenadas, índice de S\'ersic,radio efectivo y elipticidad de una galaxia; la cual modela la galaxia mediante un perfil de S\'ersic, descrito por la siguiente ecuación:
+\begin{eqnarray}
+	I(\xi) &=& I_0e^{ {-b_n \left( \frac{\xi}{Re}\right)^{1/n}}} \label{sersic}\\
+	b_n &=& 2n-0.324
+\end{eqnarray}
+Donde $I_0$ es la intensidad al centro de la galaxia, Re es  el radio efectivo y representa el radio dentro del cual se encuentra la mitad de la luminosidad total de la galaxia, n es el índice de S\'ersic y describe la forma de decaimiento de la luz de la galaxia, y, $\xi$ es el radio elíptico que toma en consideración la elipticidad $\epsilon$ de la galaxia.
+Pero se tiene además que la ecuación (\ref{sersic}) utiliza coordenadas elípticas, las que están descritas por:
+\begin{eqnarray}\nonumber
+	x &=& \xi cos(E)\\
+	y &=& \xi(1-\epsilon)sin(E)
+\end{eqnarray}
+Donde $\epsilon=1-b/a$ es la elipticidad, $\xi$ el radio elíptico y E la eccentricidad media. Además se nos dice que para el caso general de un objeto centrado en $(x_c,y_c)$ y rotado en un ángulo $\theta$, se tiene:
+\begin{eqnarray}\nonumber
+	\xi &=&((x-x_c)cos(\theta)+(y-y_0)sin(\theta))^{2}\\
+	& & +\frac{((x-x_c)sin(\theta)-(y-y_c)cos(\theta))^2}{(1-\epsilon)^2}\label{e} 
+\end{eqnarray} 
+Notar que el perfil de S\'ersic depende de $\xi$, Re, n y $I_0$, mientras que la rutina recibe m, RA, DEC, n, Re, $\epsilon$ y $\theta$. $\xi$ se obtiene a partir de la ecuación (\ref{e}) donde $(X_c,y_c)$ es generado a partir de las ordenadas celestes (RA,DEC) transformándolas a coordenadas en la imagen (row,col) mediante la misma transformación utilizada al simular las estrellas (ver sección \ref{estrella}).\\
+Nos falta $i_0$, para obtenerlo debemos obtener el numero de cuentas asociadas a la galaxia, utilizando lo descrito en la sección \ref{cuentas} junto con la ecuación de la luminosidad integrada de un perfil de S\'ersic:
+\begin{equation}
+	l_n=i_0R_e^2\frac{2\pi n}{b_n^{2n}}\Gamma(2n)
+\end{equation}
+Con esto ya tenemos todo lo que necesitamos para simular una galaxia, sin embargo, notemos que el perfil de S\'ersic va de $\xi=0$ hasta $\xi=\infty$. Ya que no es eficiente y tampoco nos entrega mayor información simular la galaxia en toda la imagen, lo que haremos sera simularla hasta un $\xi'$ suficientemente grande, tal que el valor de $I(\xi')$ sea comparable con el del fondo de la imagen; Por simplicidad a la hora de escribir el código, en lugar de hacer esto en un área circular de radio $\xi'$, lo que haremos sera tomar un cuadrado de lado a centrado en el centro de la galaxia, donde se tomo $a=5R_e$, esta elección se hizo empíricamente observando el resultado de simular varias galaxias para distintos valores de a.
+Ya que tenemos listo como simular una galaxia, ahora tenemos que crear una rutina que que lea un catalogo de galaxias y las agregue a una imagen fits ("addGalaxy(hdu,catalog)"), para esto se utilizara el catalogo "galaxy.dat", cuyo formato es:\\
+$\\
+"object"\hspace{5pt}	RA\hspace{5pt}	DEC\hspace{5pt}	r\_magnitude\hspace{5pt}	SED\hspace{5pt}	redshift\\	"galaxy"\hspace{5pt} n\hspace{5pt}	Re\hspace{5pt}	el\hspace{5pt}	theta\\
+$\\
+donde los distintos parámetros corresponden a;
+\begin{flushleft}
+	\label{table:2}      % is used to refer this table in the text
+	\begin{tabular}{ll}        % centered columns (4 columns)
+	RA&: Ascensión recta en grados. \\
+	%\hline   
+	DEC&: Declinación en grados.  \\
+	%\hline    
+	r\_magnitude&: Magnitud del objeto en el filtro R.\\
+	%\hline
+	SED&: Spectral energy distribution, no es \\ 
+	 & importante para esta tarea. \\
+	%\hline
+	redshift&: corrimiento al rojo, no es \\& importante para esta tarea\\	
+	n&: índice de S\'ersic n\\
+	Re&: Radio efectivo $R_e$ en píxeles\\
+	el&: Elipticidad $\epsilon$\\
+	theta&: Ángulo de rotación de la galaxia $\theta$ \\&en radianes
+\end{tabular}\end{flushleft}
+Todo lo que se necesita hacer es escribir una rutina que lea y reconozca los parámetros del catalogo, y llame a la rutina "addGalaxy(hdu,m,RA,DEC,n,Re,el,theta)" entregándole los parámetros correspondientes
+\subsection{Background, PSF y Ruido}
+\subsubsection{Background}
+Ya que tenemos listas las rutinas para agregar estrellas y galaxias a nuestra imagen fits, ahora se nos pide crear una rutina que le a\~nada un ruido de fondo ("addBackground(hdu,background)"), es decir, que le sume un nivel de intensidad constante a la imagen. Para esto simplemente escribimos una rutina que le sume a todos los píxeles de la imagen el valor "background"
+\subsubsection{PSF}
+Ahora necesitamos una rutina que convolucione un PSF (point spread function) Gaussiano de desviación estándar $\sigma_{psf}$ con nuestra imagen fits, ("convolvePSF(hdu,$sigma\_PSF$)"), para hacer esto primero nos definimos nuestra PSF como una Gausiana en 2D con $\sigma_x=\sigma_y=\sigma_{PSF}$ y luego la convolucionamos con los valores de nuestra imagen, y finalmente reemplazamos los valores de esta por el resultado de la convolución.
+\subsubsection{Ruido}
+El ultimo paso para simular nuestra imagen fits, es agregarle ruido, con este objetivo se nos pidió crear la rutina "addNoise(hdu,$sigma\_noise$)" que a\`nade ruido Gaussiano a una imagen con desviación estándar $\sigma_{noise}$, para esto simplemente le agregamos al valor de cada píxel de la imagen un valor aleatorio de distribución Gaussiana con $\sigma=sigma_{noise}$
+\subsection{Filtrado}
+A relationship between the width of the line and absolute visual magnitude of the star was obtained by making a linear fit of the points. The fitting used here consists of a linear least squares regression and it was made using Gnuplot. The results for the two methods are shown next:\\
+\begin{itemize}
+  \item[\textbullet] Gaussian method:
+  \begin{equation}\label{mgauss}
+  M_v=-7.64566Log(FWHM)+2.72614
+  \end{equation}
+  	\begin{itemize}
+  	\item rms of residuals:       0.422005
+  	\item variance of residuals:  0.178089
+  	\end{itemize}
+  \item[\textbullet] Manual measurement method:
+  \begin{equation}\label{Mman}
+  M_v=-8.958Log(W_0)+2.61363
+  \end{equation}  
+  	\begin{itemize}
+  	\item rms of residuals:       0.435348
+  	\item variance of residuals:  0.189528
+  	\end{itemize}  
+\end{itemize}
+It is clear that the results from the two methods are not the same, however they are quite similar. The difference between the two slopes is 1.31234 while the difference in the constant is only 0.11251. The average of the absolute value of the difference between the measures $W_0$ and the FWHM is 0.0481701912.\\
+\begin{figure}[h!]
+%	\includegraphics[scale=.7]{comparacionb.pdf}
+	\label{comparacion2}
+	\caption{Comparison between the results of the two methods.}
+\end{figure}
+%\begin{figure}[h!]
+%	\includegraphics[scale=.30]{comparacion3.pdf}
+%	\label{comparacion3}
+%	\caption{Comparison between the results of the two methods. the straigh lines represent the correspondet linear %fit $\pm$ the correspondent rms scater}
+%\end{figure}
+
+\section{Conclusions}
+The manual measurement method along with absolute visual magnitudes derived from the Hipparcos reduction provide us with an accurate new relationship for the Wilson-Bappu effect, however this method despite been the most widely used had some problems. Different authors used sometimes a slightly different definition for $W_0$, although the selection of the points to do the measure is not always straightforward and it depends widely on the criteria of the person doing the measurements. All of this implies that the measures made by different groups of people cannot be combined in order to obtain a better calibration for Wilson-Bappu relationship.\\
+In this work we have shown that it is possible to obtain a relationship for the Wilson-Bappu effect by fitting the re-emission line by a curve (a Gaussian in this case) that doesn't differ too widely with the relationship obtained by the usual method. There is still a lot of room to improve this approach by trying out different curves that represent better the re-emission line in order to obtain a more accurate relationship. The significance of this method is that it will allow one to combine work by different people by building a more standardized method to measure the width of the K calcium re-emission line.
+\\
+\section*{References}
+\begin{itemize}
+\item[] O. C. Wilson and M. K. Vainu Bappu, 1957 Apj, 125, 661.
+\item[] G. Pace, L Pasquini and S. Ortolani, 2003 A\& A, 401, 997.
+\item[] R. E.  Stencel, 2009, ASP Conference Series, 412, 251.
+\item[] J. S. Jenkins, H. R. A. Jones, Y. Pavlenko, D. J. Pinfield, J. R. Barnes and Y. Lyubchik, 2008, A\& A, 485, 571
+%\item[] J. S. Jenkins, F. Murgas, P. Rojo, H. R. A. Jones, M. I. Jones, J. R. A. Clarke, M. T. Ruiz, A. C. Day-Jones, and D. j. Pinfield, 2011
+\end{itemize}
+
+\end{document}

@@ -15,7 +15,7 @@ catalog2="galaxy.dat"
 background = 1000.0
 sigma_psf = 5.0
 sigma_noise = 20.0
-f_cut = 9
+f_cut = 20
 params = [f_cut]
 
 print "Añadiendo Estrellas"
@@ -31,6 +31,6 @@ print "Agregando Ruido"
 addNoise(hdu,sigma_noise)
 print "Filtrando Imagen"
 filterImage(hdu,params)
-# plot_image(hdu,log_scale=True)
+plot_image(hdu,log_scale=True)
 
 hdulist.close()
