@@ -4,6 +4,7 @@ import pyfits as pf
 import pylab as pl
 import scipy.signal as sig
 import numpy as np
+import numpy.fft as fft
 from math import *
 from scipy import random
 from fits_lib import *
@@ -22,6 +23,9 @@ cd1_1=hdulist[0].header['CD1_1']
 cd1_2=hdulist[0].header['CD1_2']
 cd2_1=hdulist[0].header['CD2_1']
 cd2_2=hdulist[0].header['CD2_2']
+range_x = np.zeros((maxROW,maxROW)) + np.arange(maxROW)
+range_y = range_x.transpose()
+
 
 def RADECtoRowCol(RA,DEC):
 	row = 1/(cd1_2*cd2_1-cd1_1*cd2_2)*(cd2_1*(RA-crval1)-cd1_1*(DEC-crval2))+crpix2
@@ -97,6 +101,7 @@ def convolvePSF (hdu, sigma):
 	N = 10
 	x  = np.zeros((N,N)) + np.arange(N)
 	y  = x.transpose()
+	
 	sigma_x = sigma
 	sigma_y = sigma
 	s = 0.01/(2*np.pi*sigma_x*sigma_y)
@@ -104,7 +109,8 @@ def convolvePSF (hdu, sigma):
 	y_zero = N/2
 	gaussian = np.exp(-((x-x_zero)**2.0/(2*sigma_x**2.0)+(y-y_zero)**2.0/(2*sigma_y**2.0)))/(2*np.pi*sigma_x*sigma_y)
 	gaussian = gaussian #+ random.standard_normal((N,N)) * s
-	
+
+	# plot (gaussian, "PSF", "04_PSF")	
 	# plot2D(x,y,gaussian,"PSF")
 
 	C = sig.convolve (hdu, gaussian, 'same')
@@ -114,5 +120,17 @@ def addNoise (hdu, sigma):
     # Agrega ruido Gaussiano de desviacion estandard sigma a hdu.
     hdu += random.standard_normal((maxROW,maxCOL))*sigma
 
-#def filterImage (hdu, params):
+def filterImage (hdu, params):
     # Filtra hdu utilizando los parametros params.
+    fft_cut = params[0]
+    Y = fft.fft(hdu)
+    # plot (np.log(np.abs(Y)), "FFT", "06_FFT")
+
+    N = len(hdu)
+    Ymin = np.abs(Y).min()
+    Y[fft_cut : N - fft_cut] = 0.
+    Yabs = np.abs(Y)
+    # plot (np.log(Yabs * (Yabs > 0) + (Yabs <= 0)*Ymin*1e-1), "FFT", "06_FFT_cut")
+
+    y1 = np.abs((fft.ifft (Y)))
+    hdu [:][:] = y1[:][:]

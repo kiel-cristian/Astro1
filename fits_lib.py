@@ -12,7 +12,6 @@ import pyfits
 import pylab as pl
 
 def plot_image(image,interpolation="nearest",log_scale=False,title=None):
-
     if log_scale:
        min_value = np.min(image)
        if min_value <= 0: image2 = image + np.abs(min_value) + 10.0
@@ -28,13 +27,11 @@ def plot_image(image,interpolation="nearest",log_scale=False,title=None):
     return
 
 def get_fits_matrix(path,index=0):
-
     arch = pyfits.open(path)
     mtx  = arch[index].data
     return mtx
 
 def get_fits_header(path,index=0):
-
     arch = pyfits.open(path)
     hdr  = arch[index].header
     resp = []
@@ -43,7 +40,6 @@ def get_fits_header(path,index=0):
     return resp
 
 def print_header(list_header):
-
     for key,value in list_header:
         key_str = key + " "*(8-len(key))
         print ">> %s\t= %s" % (key_str,str(value))
@@ -60,3 +56,10 @@ def plot2D (x, y, z, filename = False):
         pl.savefig (filename)
     else:
         pl.show()
+
+def plot (x, title, filename, ymin = -1e16):
+    pl.clf()
+    pl.plot (x, "-")
+    pl.ylim ([max([ymin, x.min()]), x.max()])
+    pl.title(title)
+    pl.savefig(filename)
