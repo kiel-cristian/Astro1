@@ -3,14 +3,10 @@
 import pyfits as pf
 import pylab as pl
 import scipy.signal as sig
-import scipy as sp
 import numpy as np
 from math import *
 from scipy import random
 from fits_lib import *
-#from mpl_toolkits.mplot3d import Axes3D
-#from matplotlib import cm
-#from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
 maxROW = 4096
 maxCOL = 4096
@@ -98,14 +94,7 @@ def addBackground (hdu, background):
 	return
 
 def convolvePSF (hdu, sigma):
-	#k = 4.
-	#h = np.ceil (k * sigma)
-	#x_f = np.arange (-h,h+1)
-	#y_f = np.arange (-h,h+1)
-	#filter =  np.exp((-(x_f*x_f)/(2.*sigma**2)-(y_f*y_f)/(2.*sigma**2))) / np.sqrt(2.*np.pi*sigma**2)
-	#filter /= filter.sum()
-	#print filter
-	N = 20
+	N = 10
 	x  = np.zeros((N,N)) + np.arange(N)
 	y  = x.transpose()
 	sigma_x = sigma
@@ -114,15 +103,16 @@ def convolvePSF (hdu, sigma):
 	x_zero = N/2
 	y_zero = N/2
 	gaussian = np.exp(-((x-x_zero)**2.0/(2*sigma_x**2.0)+(y-y_zero)**2.0/(2*sigma_y**2.0)))/(2*np.pi*sigma_x*sigma_y)
-	z = gaussian + random.standard_normal((N,N)) * s
-	plot2D(x,y,z,"gaussiana")
+	gaussian = gaussian #+ random.standard_normal((N,N)) * s
+	
+	# plot2D(x,y,gaussian,"PSF")
 
-	print "asasd"
-	#C = sp.signal.convolve (hdu, z, 'same')
-	#hdu[:][:] = C[:][:]
+	C = sig.convolve (hdu, gaussian, 'same')
+	hdu[:][:] = C[:][:]
     
-#def addNoise (hdu, sigma):
+def addNoise (hdu, sigma):
     # Agrega ruido Gaussiano de desviacion estandard sigma a hdu.
+    hdu += random.standard_normal((maxROW,maxCOL))*sigma
 
 #def filterImage (hdu, params):
     # Filtra hdu utilizando los parametros params.
