@@ -8,13 +8,33 @@ import numpy as np
 from math import *
 from radec import *
 
-def mToCounts (m, m0, F0):
+maxROW = 4096
+maxCOL = 4096
+hdulist = pf.open('blank.fits')
+hdulist.close()
+flux20=hdulist[0].header['FLUX20']
+exptime=hdulist[0].header['EXPTIME']
+crpix1=hdulist[0].header['CRPIX1']
+crpix2=hdulist[0].header['CRPIX2']
+crval1=hdulist[0].header['CRVAL1']
+crval2=hdulist[0].header['CRVAL2']
+cd1_1=hdulist[0].header['CD1_1']
+cd1_2=hdulist[0].header['CD1_2']
+cd2_1=hdulist[0].header['CD2_1']
+cd2_2=hdulist[0].header['CD2_2']
+
+def RADECtoRowCol(RA,DEC):
+	row =1/(cd1_2*cd2_1-cd1_1*cd2_2)*(cd2_1*(RA-crval1)-cd1_1*(DEC-crval2))+crpix2
+	col =1/(cd1_2*cd2_1-cd1_1*cd2_2)*(-cd2_2*(RA-crval1)+cd1_2*(DEC-crval2))+crpix1
+	return (int(row),int(col))#revisar bien esto despues
+
+def mToCounts(m, m0, F0):
 	counts=exptime*F0*10**(-2/5*(m-m0))
 	return (counts)
 
-def addStar (hdu, m, RA, DEC):
+def addStar(hdu, m, RA, DEC):
 	(ROW,COL)=RADECtoRowCol(RA,DEC)
-	if 0<=ROW<4096 and 0<=COL<4096:	
+	if 0<=ROW<maxROW and 0<=COL<maxCOL:	
 		hdu[ROW,COL]+=mToCounts(m,20,flux20)
 		#print ROW,COL,mToCounts(m,20,flux20)
 	return
@@ -30,7 +50,7 @@ def addStellarCatalog(hdu, catalog):
 		addStar(hdu,mag,ra,dec)
 	return
 
-def psersic (Re,n,m,xc,yc,x,y,el,theta):
+def psersic(Re,n,m,xc,yc,x,y,el,theta):
 	bn=2*n-0.324
 	ln=mToCounts(m,20,flux20)
 	I0=ln*bn**2/((Re**2)*2*pi*n*gamma(2*n))
@@ -38,9 +58,9 @@ def psersic (Re,n,m,xc,yc,x,y,el,theta):
 	I=I0*exp(-bn*(E/Re)**(1/n))
 	return (I)
 	
-def addGalaxy (hdu, m, RA, DEC, n, Re, el, theta):
+def addGalaxy(hdu, m, RA, DEC, n, Re, el, theta):
 	(ROW,COL)=RADECtoRowCol(RA,DEC)
-	if 0<=ROW<4096 and 0<=COL<4096:	
+	if 0<=ROW<maxROW and 0<=COL<maxCOL:	
 		a1=int(ROW-4*Re)
 		b1=int(ROW+4*Re)
 		a2=int(COL-4*Re)
@@ -53,7 +73,7 @@ def addGalaxy (hdu, m, RA, DEC, n, Re, el, theta):
 		#print ROW,COL, mToCounts(m,20,flux20)*(2*n-0.324)**2/((Re**2)*2*pi*n*gamma(2*n))
 	return
 
-def addGalaxyCatalog (hdu, catalog):
+def addGalaxyCatalog(hdu, catalog):
 	i=0
 	for linea in open(catalog):
 		linea = linea.strip()
@@ -75,7 +95,7 @@ def addBackground (hdu, background):
     return
 
 def convolvePSF (hdu, sigma):
-    # Convoluciona hdu con un PSF Gaussiano de desviaci�n estandard
+    # Convoluciona hdu con un PSF Gaussiano de desviación estandard
     # sigma.
     return
     
@@ -86,3 +106,10 @@ def addNoise (hdu, sigma):
 def filterImage (hdu, params):
     # Filtra hdu utilizando los parametros params.
     return
+
+if __name__=="__main__":
+	ra = 22.1142135471
+	dec = -0.112283531445
+	print "RA: "+ str(ra) +"\t\t\tDEC: "+str(dec)
+	(x,y) = RADECtoRowCol(ra,dec)
+	print "X: "+ str(x) +"\t\t\tY: "+str(y)
