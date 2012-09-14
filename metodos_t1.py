@@ -6,7 +6,10 @@ import scipy.signal as sig
 import scipy as sp
 import numpy as np
 from math import *
-from radec import *
+from scipy import random
+#from mpl_toolkits.mplot3d import Axes3D
+#from matplotlib import cm
+#from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
 maxROW = 4096
 maxCOL = 4096
@@ -56,18 +59,17 @@ def addStellarCatalog(hdu, catalog):
 		#print ra,dec,RADECtoRowCol(ra,dec)
 		addStar(hdu,mag,ra,dec)
 	return
-	
+
 def addGalaxy(hdu, m, RA, DEC, n, Re, el, theta):
 	(ROW,COL)=RADECtoRowCol(RA,DEC)
 	if 0 <= ROW < maxROW and 0 <= COL < maxCOL:	
-		f = 5
-		a1=int(ROW-f*Re)
-		b1=int(ROW+f*Re)
-		a2=int(COL-f*Re)
-		b2=int(COL+f*Re)
+		a1=int(ROW-5*Re)
+		b1=int(ROW+5*Re)
+		a2=int(COL-5*Re)
+		b2=int(COL+5*Re)
 		for y in range(a1,b1):
 			for x in range(a2,b2):
-				if  0 <= y < 4096 and 0 <= x < 4096:
+				if 0 <= y < maxROW and 0 <= x < maxCOL:
 					hdu[y,x] += psersic(Re,n,m,COL,ROW,x,y,el,theta)
 		#hdu[ROW,COL]+=mToCounts(m,20,flux20)*(2*n-0.324)**2/((Re**2)*2*pi*n*gamma(2*n))
 		#print ROW,COL, mToCounts(m,20,flux20)*(2*n-0.324)**2/((Re**2)*2*pi*n*gamma(2*n))
@@ -87,30 +89,52 @@ def addGalaxyCatalog(hdu, catalog):
 		o = float(o)
 		addGalaxy(hdu,mag,ra,dec,n,re,elip,o)
 		i += 1
-		# if i > 100000: break
+		if i > 100: break
 	return
 
 def addBackground (hdu, background):
-    hdu += background# Agrega un background constante a hdu.
-    return
+	hdu += background
+	return
+
+def plot2D (x, y, z, filename = False):
+
+    pl.clf()
+    fig  = pl.figure()
+    ax   = fig.gca(projection='3d')
+    surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.jet,linewidth=0, antialiased=False)
+    ax.zaxis.set_major_locator(LinearLocator(10))
+    ax.zaxis.set_major_formatter(FormatStrFormatter('%f'))
+    fig.colorbar(surf, shrink=0.5, aspect=5)
+
+    if filename:
+        pl.savefig (filename)
+    else:
+        pl.show()
 
 def convolvePSF (hdu, sigma):
-    # Convoluciona hdu con un PSF Gaussiano de desviación estandard
-    # sigma.
-    return
+	#k = 4.
+	#h = np.ceil (k * sigma)
+	#x_f = np.arange (-h,h+1)
+	#y_f = np.arange (-h,h+1)
+	#filter =  np.exp((-(x_f*x_f)/(2.*sigma**2)-(y_f*y_f)/(2.*sigma**2))) / np.sqrt(2.*np.pi*sigma**2)
+	#filter /= filter.sum()
+	#print filter
+	N=maxROW
+	x  = np.zeros((N,N)) + np.arange(N)
+	y  = x.transpose()
+	sigma_x = sigma
+	sigma_y = sigma
+	s = 0.01/(2*np.pi*sigma_x*sigma_y)
+	x_zero = N/2
+	y_zero = N/2
+	gaussian = np.exp(-((x-x_zero)**2.0/(2*sigma_x**2.0)+(y-y_zero)**2.0/(2*sigma_y**2.0)))/(2*np.pi*sigma_x*sigma_y)
+	z = gaussian + random.standard_normal((N,N)) * s
+	plot2D(x,y,z,"gaussiana")
+	#C = sp.signal.convolve (hdu, z, 'same')
+	#hdu[:][:] = C[:][:]
     
-def addNoise (hdu, sigma):
+#def addNoise (hdu, sigma):
     # Agrega ruido Gaussiano de desviacion estandard sigma a hdu.
-    return
 
-def filterImage (hdu, params):
+#def filterImage (hdu, params):
     # Filtra hdu utilizando los parametros params.
-    return
-
-if __name__=="__main__":
-	#test de RADEC
-	ra = 22.1142135471
-	dec = -0.112283531445
-	print "RA: " + str(ra) + "\t\t\tDEC: " + str(dec)
-	(x,y) = RADECtoRowCol(ra,dec)
-	print "X: " + str(x) + "\t\t\tY: " + str(y)
