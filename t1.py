@@ -1,33 +1,36 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 import pyfits as pf
 import pylab as pl
 import scipy.signal as sig
 import scipy as sp
 import numpy as np
-import matplotlib.pyplot as plt
-import metodos_t1 as m
+from fits_lib import *
+from metodos_t1 import *
 
 hdulist = pf.open('blank.fits')
 hdu= hdulist[0].data
-catalogo1="stellar.dat"
-catalogo2="galaxy.dat"
-m.addStellarCatalog(hdu,catalogo1)
-m.addGalaxyCatalog(hdu,catalogo2)
-print hdu [10,10]
-m.addBackground (hdu, 1000)
-print hdu[10,10]
-def plot_image(image,interpolation="nearest",log_scale=False,title=None):
-	if log_scale:
-		min_value = np.min(image)		
-		if min_value <= 0: image2 = image + np.abs(min_value) + 10.0
-		else: image2 = image - min_value + 10.0
-		plt.imshow(np.log(image2),interpolation=interpolation)
-	else:
-		plt.imshow(image,interpolation=interpolation)
-	if title != None:
-		plt.title(str(title))
-	plt.show()
-	return
-m.convolvePSF (hdu, 5)
+catalog1="stellar.dat"
+catalog2="galaxy.dat"
+background = 1000.0
+sigma_psf = 5.0
+sigma_noise = 20.0
+f_cut = 9
+params = [f_cut]
 
-plot_image(hdu,log_scale=True)
+print "Añadiendo Estrellas"
+addStellarCatalog(hdu,catalog1)
+print "Añadiendo Galaxias"
+addGalaxyCatalog(hdu,catalog2)
+# addGalaxy(hdu, 10.0, 22.1, 0.11, 4.0, 10.0, 1.2, 0.5)
+print "Añadiendo Background"
+addBackground(hdu,background)
+print "Convolucionando"
+convolvePSF (hdu, sigma_psf)
+print "Agregando Ruido"
+addNoise(hdu,sigma_noise)
+print "Filtrando Imagen"
+filterImage(hdu,params)
+# plot_image(hdu,log_scale=True)
+
 hdulist.close()

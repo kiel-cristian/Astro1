@@ -124,13 +124,15 @@ def filterImage (hdu, params):
     # Filtra hdu utilizando los parametros params.
     fft_cut = params[0]
     Y = fft.fft(hdu)
+
+    print Y
     # plot (np.log(np.abs(Y)), "FFT", "06_FFT")
 
-    N = len(hdu)
-    Ymin = np.abs(Y).min()
-    Y[fft_cut : N - fft_cut] = 0.
-    Yabs = np.abs(Y)
+    # N = len(hdu)
+    # Ymin = np.abs(Y).min()
+    # Y[fft_cut : N - fft_cut] = 0.
+    # Yabs = np.abs(Y)
     # plot (np.log(Yabs * (Yabs > 0) + (Yabs <= 0)*Ymin*1e-1), "FFT", "06_FFT_cut")
 
-    y1 = np.abs((fft.ifft (Y)))
-    hdu [:][:] = y1[:][:]
+    # y1 = np.abs((fft.ifft (Y)))
+    # hdu [:][:] = y1[:][:]
