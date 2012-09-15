@@ -29,17 +29,16 @@
 	%accept e-mails}
 }
 \date{\today}
-\abstract{In this work we have taken a subsample of 138 stars that show the re-emission of the Calcium K line core out of a sample of over 900 dwarfs and sub-giants stars observed with the FEROS spectrograph and used to study the Wilson-Bappu effect. The width of the line was measured in the usual manner but also the re-emission of the line was fit by a Gaussian and then taking the FWHM of the Gaussian, and using the new Hipparcos reduction from van Lueewen (2008), a new relationship for the Wilson-Bappu effect was obtained as well as a second relationship using the FWHM as a measure of the width of the line, both relationships were later compared in order to see the validity of this new approach.
-\keywords{Wilson-Bappu effect -- absolute magnitude -- distance -- K calcium re-emission line
-}
+\abstract{Una de las fascetas enseñadas en este curso, es el enfoque del manejo de datos y de estándares astronómicos, y de la familiarización con los sucesos que acontecen en la captura de estos mismos datos en imágenes. Este informe alude principalmente a métodos que se efectúan en la vida real para analizar de forma correcta estas imágenes y permitir así clasificaciones y procesamientos de datos para la refinación de las mismas mediante herramientas que provee el lenguaje de programación $Python$ y algunas librerías.
 }
 \maketitle
 %
 %________________________________________________________________
-\section{Introduction}
-The Wilson-Bappu effect is a correlation between the width of the emission core of the Calcium K spectral ($W_0$) line and the absolute visual magnitude of the star. This correlation is independent of spectral type and applicable to stars of type G, K, and M. This correlation was first reported by Olin C. Wilson and M. K. Vainu Bappu (1957) and could provide an independent method to measure the distance of stars clusters or nearby galaxies.\\
-\section{Objetivos}\
+\section{Introducción}
+El objetivo de esta tarea es familiarizarce con el lenguaje de programación Python y con librerías usadas comunmente para procesamiento de imágenes astronómicas. El objetivo es el de generar una imagen astronómica a partir de un catálogo de objetos, al que posteriormente se le aplicarán métodos, tanto para agregar $background$, $ruido$ , una $PSF(Point Spread Function)$ para lograr una cercanía mayor a lo que sería una imagen capturada por un centro astronómico ( fuentes de errores comunes). Finalmente, a esta imagen simulada, se le aplicará un filtro, que forma parte del proceso de refinación de la imagen, y que permite en la realidad, analizar los datos disminuyendo las fuentes de errores.
+
 \section{Metodología} 
+A continuación , la lista de pasos a seguir y aplicar al proceso de generación de la imagen simulada.
 \subsection{Obtencion de Cuentas desde Magnitudes}
 \label{cuentas}
 Lo primero que se nos pide para realizar esta tarea es la creación de la rutina "mToCounts(m,m0,F0)" que reciba el la magnitud de un objeto (m)y retorne el numero de cuentas recibidos el CCD dadas una magnitud y flujo de referencia ($m_0$,$F_0$).\\
@@ -252,48 +251,20 @@ Ahora necesitamos una rutina que convolucione un PSF (point spread function) Gau
 \subsubsection{Ruido}
 El ultimo paso para simular nuestra imagen fits, es agregarle ruido, con este objetivo se nos pidió crear la rutina "addNoise(hdu,$sigma\_noise$)" que a\`nade ruido Gaussiano a una imagen con desviación estándar $\sigma_{noise}$, para esto simplemente le agregamos al valor de cada píxel de la imagen un valor aleatorio de distribución Gaussiana con $\sigma=sigma_{noise}$
 \subsection{Filtrado}
-A relationship between the width of the line and absolute visual magnitude of the star was obtained by making a linear fit of the points. The fitting used here consists of a linear least squares regression and it was made using Gnuplot. The results for the two methods are shown next:\\
-\begin{itemize}
-  \item[\textbullet] Gaussian method:
-  \begin{equation}\label{mgauss}
-  M_v=-7.64566Log(FWHM)+2.72614
-  \end{equation}
-  	\begin{itemize}
-  	\item rms of residuals:       0.422005
-  	\item variance of residuals:  0.178089
-  	\end{itemize}
-  \item[\textbullet] Manual measurement method:
-  \begin{equation}\label{Mman}
-  M_v=-8.958Log(W_0)+2.61363
-  \end{equation}  
-  	\begin{itemize}
-  	\item rms of residuals:       0.435348
-  	\item variance of residuals:  0.189528
-  	\end{itemize}  
-\end{itemize}
-It is clear that the results from the two methods are not the same, however they are quite similar. The difference between the two slopes is 1.31234 while the difference in the constant is only 0.11251. The average of the absolute value of the difference between the measures $W_0$ and the FWHM is 0.0481701912.\\
-\begin{figure}[h!]
-%	\includegraphics[scale=.7]{comparacionb.pdf}
-	\label{comparacion2}
-	\caption{Comparison between the results of the two methods.}
+Posterior a la simulación de nuestra imagen fits, fue necesario aplicar un filtro en el espacio de fourier. Básicamente, a la imagen en el plano de fourier, se le quitaron frecuencias en base a una frecuencia de corte $f\_cut$ de forma uniforme, resultando así una imagen con ruido reducido y mayor contraste de elementos en la misma.
+
+\section{Resultados}
+A continuación, las imágenes generadas resultantes en cada aplicación de método: 
+
+\begin{figure}
+  \centering
+    \includegraphics{example.png}
+  \caption{Mi Figura}
+  \label{fig:ejemplo}
 \end{figure}
-%\begin{figure}[h!]
-%	\includegraphics[scale=.30]{comparacion3.pdf}
-%	\label{comparacion3}
-%	\caption{Comparison between the results of the two methods. the straigh lines represent the correspondet linear %fit $\pm$ the correspondent rms scater}
-%\end{figure}
 
 \section{Conclusiones}
-The manual measurement method along with absolute visual magnitudes derived from the Hipparcos reduction provide us with an accurate new relationship for the Wilson-Bappu effect, however this method despite been the most widely used had some problems. Different authors used sometimes a slightly different definition for $W_0$, although the selection of the points to do the measure is not always straightforward and it depends widely on the criteria of the person doing the measurements. All of this implies that the measures made by different groups of people cannot be combined in order to obtain a better calibration for Wilson-Bappu relationship.\\
-In this work we have shown that it is possible to obtain a relationship for the Wilson-Bappu effect by fitting the re-emission line by a curve (a Gaussian in this case) that doesn't differ too widely with the relationship obtained by the usual method. There is still a lot of room to improve this approach by trying out different curves that represent better the re-emission line in order to obtain a more accurate relationship. The significance of this method is that it will allow one to combine work by different people by building a more standardized method to measure the width of the K calcium re-emission line.
-\\
-\section*{References}
-\begin{itemize}
-\item[] O. C. Wilson and M. K. Vainu Bappu, 1957 Apj, 125, 661.
-\item[] G. Pace, L Pasquini and S. Ortolani, 2003 A\& A, 401, 997.
-\item[] R. E.  Stencel, 2009, ASP Conference Series, 412, 251.
-\item[] J. S. Jenkins, H. R. A. Jones, Y. Pavlenko, D. J. Pinfield, J. R. Barnes and Y. Lyubchik, 2008, A\& A, 485, 571
-%\item[] J. S. Jenkins, F. Murgas, P. Rojo, H. R. A. Jones, M. I. Jones, J. R. A. Clarke, M. T. Ruiz, A. C. Day-Jones, and D. j. Pinfield, 2011
-\end{itemize}
+El objetivo de las tareas planteadas en el informe fue completado en su mayoría. Si bien, como parte del curso en sí, interesa la idea de aprender a manipular datos astronómicos, era también un objetivo lograr familiarizarse con el lenguaje de programación Python y de sus librerías para facilitar la tarea antes mencionada, lo cual se consiguió de forma aceptable. Se logró el cálculo de cuentas, agregar la totalidad de estrellas y galaxias del catálogo, aplicar un $background$ a la imagen, covolucionar una $PSF$, agregar ruido aleatorio, y finalmente, aplicar un filtro para recuperar calidad en la imagen. Lo que quedó pendiente en el desarrollo, fue lo de generar una imagen en el dominio de $Fourier$, dado a complicaciones ténicas que no se logró resolver a tiempo. Sin embargo, logramos comprobar la teoría del procesamiento de imágenes de forma completa, lo que puede apreciarse en las imágenes que planteamos como resultados a nuestra experimentación.
+
 
 \end{document}

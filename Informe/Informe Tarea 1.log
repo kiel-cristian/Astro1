@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.3)  14 SEP 2012 20:32
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.3)  14 SEP 2012 22:50
 entering extended mode
  %&-line parsing enabled.
 **"Informe Tarea 1.tex"
@@ -340,8 +340,11 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \c@LT@tables=\count96
 \c@LT@chunks=\count97
 \LT@p@ftn=\toks20
+) (./Informe Tarea 1.aux
+
+LaTeX Warning: Label `table:2' multiply defined.
+
 )
-No file "Informe Tarea 1".aux.
 \openout1 = `"Informe Tarea 1.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -356,7 +359,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
-(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+ (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count98
 \scratchdimen=\dimen119
@@ -370,62 +373,57 @@ LaTeX Font Info:    ... okay on input line 8.
 \everyMPtoPDFconversion=\toks22
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 36.
+(Font)              <17.28> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 36.
+(Font)              <12> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 36.
+(Font)              <7> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 36.
+(Font)              <5> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 36.
+(Font)              <10.95> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 36.
+(Font)              <8> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 36.
+(Font)              <6> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 36.
+(Font)              <9> on input line 34.
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--36
+Underfull \hbox (badness 10000) in paragraph at lines 34--34
   
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--36
+Underfull \hbox (badness 10000) in paragraph at lines 34--34
   
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 40--41
-
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 43.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 42.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--48
+Underfull \hbox (badness 10000) in paragraph at lines 44--47
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--70
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
 \OT1/cmr/m/n/10 A con-tin-uaci^^Son se nos pidi^^So generar la rutina
  []
 
 
-Underfull \hbox (badness 4699) in paragraph at lines 69--70
+Underfull \hbox (badness 4699) in paragraph at lines 68--69
 \OT1/cmr/m/n/10 "addStar(hdu,m,RA,DEC)" que reciba la mag-ni-tud
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--70
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
 
  []
 
 
-Overfull \hbox (11.92702pt too wide) in paragraph at lines 71--86
+Overfull \hbox (11.92702pt too wide) in paragraph at lines 70--85
 [] \OT1/cmr/m/n/10 = [] []$ 
  []
 
@@ -433,167 +431,130 @@ Overfull \hbox (11.92702pt too wide) in paragraph at lines 71--86
 
 
 ]
-Overfull \hbox (2.64395pt too wide) in paragraph at lines 96--115
+Overfull \hbox (2.64395pt too wide) in paragraph at lines 95--114
 []  
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 116--125
+Underfull \hbox (badness 10000) in paragraph at lines 115--124
 
  []
 
 
-LaTeX Warning: Reference `a' on page 2 undefined on input line 150.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 138--151
+Underfull \hbox (badness 10000) in paragraph at lines 137--150
 
  []
 
 
-Overfull \hbox (0.77635pt too wide) detected at line 163
+Overfull \hbox (0.77635pt too wide) detected at line 162
 $ [] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 M[] [] \OT1/cmr/m/n/10 + []$ []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 177--184
+Underfull \hbox (badness 10000) in paragraph at lines 176--183
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--200
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
 \OT1/cmr/m/n/10 Luego todo lo que nece-si-ta-mos hacer es crear
  []
 
 
-Underfull \hbox (badness 2486) in paragraph at lines 199--200
+Underfull \hbox (badness 2486) in paragraph at lines 198--199
 \OT1/cmr/m/n/10 una rutina que lea la tabla y llame a la rutina
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 201--202
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
 \OT1/cmr/m/n/10 Se nos pide ahora crear una rutina que
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 201--202
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
 \OT1/cmr/m/n/10 a~nada una galaxia a un archivo fit "ad-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 201--202
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
 \OT1/cmr/m/n/10 dGalaxy(hdu,m,RA,DEC,n,Re,el,theta)" que recibe
  []
 
-
-LaTeX Warning: Reference `sersic' on page 2 undefined on input line 207.
-
-
-LaTeX Warning: Reference `e' on page 2 undefined on input line 217.
-
-
-LaTeX Warning: Reference `estrella' on page 2 undefined on input line 217.
-
-
-LaTeX Warning: Reference `cuentas' on page 2 undefined on input line 218.
-
 [2]
-Underfull \hbox (badness 1028) in paragraph at lines 222--228
+Underfull \hbox (badness 1028) in paragraph at lines 221--227
 \OT1/cmr/m/n/10 Con esto ya ten-emos todo lo que nece-si-ta-mos para
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--228
+Underfull \hbox (badness 10000) in paragraph at lines 221--227
 
  []
 
 
-Underfull \vbox (badness 5924) has occurred while \output is active []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 \OT1/cmr/m/n/10 Ahora nece-si-ta-mos una rutina que con-volu-cione
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 \OT1/cmr/m/n/10 un PSF (point spread func-tion) Gaussiano de
  []
 
 
-Underfull \hbox (badness 4353) in paragraph at lines 251--252
+Underfull \hbox (badness 4353) in paragraph at lines 250--251
 \OT1/cmr/m/n/10 desviaci^^Son est^^Sandar $\OML/cmm/m/it/10 ^^[[]$ \OT1/cmr/m/n
 /10 con nues-tra im-a-gen fits,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 \OT1/cmr/m/n/10 ("convolvePSF(hdu,$\OML/cmm/m/it/10 sigma[]PSF$\OT1/cmr/m/n/10 
 )"), para hacer esto
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 255--256
-
+<example.png, id=27, 578.16pt x 433.62pt>
+File: example.png Graphic file (type png)
+ <use example.png>
+Overfull \hbox (327.77434pt too wide) in paragraph at lines 261--262
+ [][] 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 257.
+[3] [4
 
-(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 257.
- [3]
-Underfull \hbox (badness 1112) in paragraph at lines 287--290
-\OT1/cmr/m/n/10 the most widely used had some prob-lems. Different
- []
+ <./example.png>] (./Informe Tarea 1.aux)
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 287--290
-
- []
-
-[4
-
-] (./Informe Tarea 1.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2158 strings out of 495061
- 24753 string characters out of 1182622
- 99661 words of memory out of 3000000
- 5338 multiletter control sequences out of 15000+50000
+ 2147 strings out of 495061
+ 24575 string characters out of 1182622
+ 99765 words of memory out of 3000000
+ 5327 multiletter control sequences out of 15000+50000
  13167 words of font info for 45 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 25i,14n,27p,770b,204s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-tex
-live/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmmi6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/
-texmf-texlive/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-texlive/fonts/type1/public/am
-sfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr
-7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
-hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
-ts/cm/cmssi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr
-/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on "Informe Tarea 1.pdf" (4 pages, 256243 bytes).
+ 25i,14n,27p,1014b,204s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/cm/cmmi6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi9.pfb><
+/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-texlive/fonts
+/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmssi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
+5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on "Informe Tarea 1.pdf" (4 pages, 296328 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
+ 102 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
