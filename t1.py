@@ -16,7 +16,7 @@ catalog1="stellar.dat"
 catalog2="galaxy.dat"
 background = 1000.0
 sigma_psf = 6.0
-sigma_noise = 15.0
+sigma_noise = 10.0
 f_cut = 20
 params = [f_cut,header]
 

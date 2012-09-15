@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.3)  14 SEP 2012 22:50
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.3)  14 SEP 2012 23:55
 entering extended mode
  %&-line parsing enabled.
 **"Informe Tarea 1.tex"
@@ -344,6 +344,18 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 
 LaTeX Warning: Label `table:2' multiply defined.
 
+
+LaTeX Warning: Label `fig:ejemplo' multiply defined.
+
+
+LaTeX Warning: Label `fig:ejemplo' multiply defined.
+
+
+LaTeX Warning: Label `fig:ejemplo' multiply defined.
+
+
+LaTeX Warning: Label `fig:ejemplo' multiply defined.
+
 )
 \openout1 = `"Informe Tarea 1.aux"'.
 
@@ -512,28 +524,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 250--251
 )"), para hacer esto
  []
 
-<example.png, id=27, 578.16pt x 433.62pt>
-File: example.png Graphic file (type png)
- <use example.png>
-Overfull \hbox (327.77434pt too wide) in paragraph at lines 261--262
+<stars.png, id=27, 586.8324pt x 442.2924pt>
+File: stars.png Graphic file (type png)
+ <use stars.png>
+Overfull \hbox (29.61575pt too wide) in paragraph at lines 262--263
  [][] 
  []
 
-[3] [4
+<galaxys.png, id=29, 586.8324pt x 442.2924pt>
+File: galaxys.png Graphic file (type png)
+ <use galaxys.png>
+Overfull \hbox (29.61575pt too wide) in paragraph at lines 269--270
+ [][] 
+ []
 
- <./example.png>] (./Informe Tarea 1.aux)
+<background.png, id=30, 586.8324pt x 442.2924pt>
+File: background.png Graphic file (type png)
+ <use background.png>
+Overfull \hbox (29.61575pt too wide) in paragraph at lines 276--277
+ [][] 
+ []
+
+<convolve.png, id=31, 586.8324pt x 442.2924pt>
+File: convolve.png Graphic file (type png)
+ <use convolve.png>
+Overfull \hbox (29.61575pt too wide) in paragraph at lines 283--284
+ [][] 
+ []
+
+<noise.png, id=32, 586.8324pt x 442.2924pt>
+File: noise.png Graphic file (type png)
+ <use noise.png>
+Overfull \hbox (29.61575pt too wide) in paragraph at lines 290--291
+ [][] 
+ []
+
+<filtered.png, id=33, 586.8324pt x 442.2924pt>
+File: filtered.png Graphic file (type png)
+ <use filtered.png>
+Overfull \hbox (29.61575pt too wide) in paragraph at lines 297--298
+ [][] 
+ []
+
+[3] [4 <./stars.png> <./galaxys.png> <./background.png> <./convolve.png>]
+[5
+
+ <./noise.png> <./filtered.png>] (./Informe Tarea 1.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2147 strings out of 495061
- 24575 string characters out of 1182622
- 99765 words of memory out of 3000000
- 5327 multiletter control sequences out of 15000+50000
+ 2174 strings out of 495061
+ 24971 string characters out of 1182622
+ 99781 words of memory out of 3000000
+ 5348 multiletter control sequences out of 15000+50000
  13167 words of font info for 45 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 25i,14n,27p,1014b,204s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 25i,14n,27p,1014b,207s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/shar
 e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-tex
 live/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/
@@ -552,9 +600,9 @@ xlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-texlive/fonts
 blic/amsfonts/cm/cmssi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
 nts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
 5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on "Informe Tarea 1.pdf" (4 pages, 296328 bytes).
+Output written on "Informe Tarea 1.pdf" (5 pages, 396311 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
+ 115 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

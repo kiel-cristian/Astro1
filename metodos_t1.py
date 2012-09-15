@@ -126,9 +126,16 @@ def filterImage (hdu, params):
     # plot_image(Y,log_scale=True)
 
     N = len(hdu)
-    Ymin = np.abs(Y).min()
-    Y[fft_cut : N - fft_cut] = 0.
-    Yabs = np.abs(Y)
+
+    N_corte  = fft_cut
+    for i in range(N):
+    	for j in range(N):
+    		if ((i+N/2)%N - N/2)**2 + ((j+N/2)%N - N/2)**2 > (N_corte)**2:
+    			Y[i][j] = 0.0
+
+    # Ymin = np.abs(Y).min()
+    # Y[fft_cut : N - fft_cut] = 0.
+    # Yabs = np.abs(Y)
     # plot (np.log(Yabs * (Yabs > 0) + (Yabs <= 0)*Ymin*1e-1), "FFT", "06_FFT_cut")
 
     y1 = np.abs((fft.ifft (Y)))
