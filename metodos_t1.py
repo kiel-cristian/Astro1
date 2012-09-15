@@ -23,9 +23,6 @@ cd1_1=hdulist[0].header['CD1_1']
 cd1_2=hdulist[0].header['CD1_2']
 cd2_1=hdulist[0].header['CD2_1']
 cd2_2=hdulist[0].header['CD2_2']
-range_x = np.zeros((maxROW,maxROW)) + np.arange(maxROW)
-range_y = range_x.transpose()
-
 
 def RADECtoRowCol(RA,DEC):
 	row = 1/(cd1_2*cd2_1-cd1_1*cd2_2)*(cd2_1*(RA-crval1)-cd1_1*(DEC-crval2))+crpix2
@@ -90,7 +87,7 @@ def addGalaxyCatalog(hdu, catalog):
 		o = float(o)
 		addGalaxy(hdu,mag,ra,dec,n,re,elip,o)
 		i += 1
-		if i > 100: break
+		# if i > 100: break
 	return
 
 def addBackground (hdu, background):
@@ -123,16 +120,16 @@ def addNoise (hdu, sigma):
 def filterImage (hdu, params):
     # Filtra hdu utilizando los parametros params.
     fft_cut = params[0]
+    header = params[1]
+
     Y = fft.fft(hdu)
+    # plot_image(Y,log_scale=True)
 
-    print Y
-    # plot (np.log(np.abs(Y)), "FFT", "06_FFT")
-
-    # N = len(hdu)
-    # Ymin = np.abs(Y).min()
-    # Y[fft_cut : N - fft_cut] = 0.
-    # Yabs = np.abs(Y)
+    N = len(hdu)
+    Ymin = np.abs(Y).min()
+    Y[fft_cut : N - fft_cut] = 0.
+    Yabs = np.abs(Y)
     # plot (np.log(Yabs * (Yabs > 0) + (Yabs <= 0)*Ymin*1e-1), "FFT", "06_FFT_cut")
 
-    # y1 = np.abs((fft.ifft (Y)))
-    # hdu [:][:] = y1[:][:]
+    y1 = np.abs((fft.ifft (Y)))
+    hdu[:][:] = y1[:][:]
